@@ -11,19 +11,15 @@ export default async function Page() {
 
   if (!session) return redirect("/signin");
 
- 
-  const data = await fetch(  // @ts-expect-error idk
+  const data = await fetch(
+    // @ts-expect-error idk
     `${process.env.JAVA_API}/api/users/${session.user.id}`
   );
 
-
   if (data.status === 404) {
-    const obj = {...DefaultResumeData};
+    const obj = { ...DefaultResumeData };
     obj.name = session.user?.name as string;
     obj.email = session.user?.email as string;
-    // obj.profilePicture = session.user?.image as string;
-
-    console.log(obj)
 
     const r = await fetch(`${process.env.JAVA_API}/api/users`, {
       method: "POST",
@@ -33,7 +29,7 @@ export default async function Page() {
       body: JSON.stringify({
         // @ts-expect-error idk
         uuid: session.user?.id,
-        ...obj
+        ...obj,
       }),
     });
 
@@ -43,6 +39,6 @@ export default async function Page() {
   }
 
   const json = await data.json();
-  
+
   return <Editor json={json as ResumeForm} />;
 }

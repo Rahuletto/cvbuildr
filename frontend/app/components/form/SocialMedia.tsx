@@ -34,28 +34,30 @@ const SocialMedia = () => {
   return (
     <div className="flex relative flex-col gap-2 -m-3 px-6 py-4 pb-8 my-14 border-2 border-black border-dashed">
       <h2 className="input-title">Social Media</h2>
-      {resumeData.socialMedia.map((socialMedia, index) => (
-        <div key={index} className="flex flex-wrap">
-          <input
-            type="text"
-            placeholder="Social Media"
-            name="socialMedia"
-            className="other-input w-[30%] border-r-0"
-            value={socialMedia?.socialMedia}
-            onChange={(e) => handleSocialMedia(e, index)}
-          />
-          <input
-            type="text"
-            placeholder="Link"
-            name="link"
-            className="other-input w-[65%]"
-            value={socialMedia.link}
-            onChange={(e) => handleSocialMedia(e, index)}
-          />
-        </div>
-      ))}
+      {resumeData &&
+        resumeData.socialMedia &&
+        resumeData?.socialMedia?.map((socialMedia, index) => (
+          <div key={index} className="flex flex-wrap">
+            <input
+              type="text"
+              placeholder="Social Media"
+              name="socialMedia"
+              className="other-input w-[30%] border-r-0"
+              value={socialMedia?.socialMedia}
+              onChange={(e) => handleSocialMedia(e, index)}
+            />
+            <input
+              type="text"
+              placeholder="Link"
+              name="link"
+              className="other-input w-[65%]"
+              value={socialMedia.link}
+              onChange={(e) => handleSocialMedia(e, index)}
+            />
+          </div>
+        ))}
       <FormButton
-        size={resumeData.socialMedia.length}
+        size={resumeData && resumeData.socialMedia?.length}
         add={addSocialMedia}
         remove={removeSocialMedia}
       />
