@@ -1,0 +1,61 @@
+#!/bin/bash
+
+kill_ports() {
+  ports=(3000 8000 8080)
+
+  for port in "${ports[@]}"; do
+    echo "Checking for process on port $port..."
+    PID=$(lsof -ti tcp:"$port")
+
+    if [ -n "$PID" ]; then
+      echo "Killing process $PID on port $port..."
+      kill -9 "$PID"
+      echo "Process on port $port has been terminated."
+    else
+      echo "No process found on port $port."
+    fi
+  done
+
+  echo "Completed killing specified ports."
+}
+
+cleanup() {
+  echo "Stopping all servers..."
+  kill "$MYSQL_PID" "$SPRING_PID" "$UVICORN_PID" "$BUN_PID"
+  echo "All servers stopped."
+}
+
+trap cleanup SIGINT SIGTERM
+
+# Start MySQL via Homebrew
+kill_ports
+
+echo "Starting MySQL server..."
+brew services start mysql &
+MYSQL_PID=$!
+
+# Start the Spring Boot application
+echo "Starting Spring Boot application..."
+(
+  cd Documents/Coding/Resumator/database || exit
+  mvn spring-boot:run
+) &
+SPRING_PID=$!
+
+# Start the Uvicorn server
+echo "Starting Uvicorn for ATS app..."
+(
+  cd Documents/Coding/Resumator/analyzer || exit
+  uvicorn ats:app --reload
+) &
+UVICORN_PID=$!
+
+# Start the Bun development server
+echo "Starting Bun dev server..."
+(
+  cd Documents/Coding/Resumator/frontend || exit
+  bun run dev
+) &
+BUN_PID=$!
+
+wait
