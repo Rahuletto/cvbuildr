@@ -1,7 +1,6 @@
 export async function PATCH(req: Request) {
   const body = await req.json();
 
-  console.log("BODY", body);
   const r = await fetch(`${process.env.JAVA_API}/api/users`, {
     method: "POST",
     body: JSON.stringify(body),
