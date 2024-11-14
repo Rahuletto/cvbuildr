@@ -23,6 +23,7 @@ import { DropResult } from "react-beautiful-dnd";
 import { HiOutlineDownload } from "react-icons/hi";
 import { AnalysisResult } from "@/types/Analysis";
 import Dialog from "./Dialog";
+import { useSession } from "next-auth/react";
 
 const DragDropContext = dynamic(
   () =>
@@ -133,7 +134,7 @@ const Preview = () => {
   function save() {
     setSaving(1);
 
-    fetch("/api/save", {
+    fetch("/api/save?uuid=" + resumeData.uuid, {
       method: "PATCH",
       body: JSON.stringify(resumeData),
     })
