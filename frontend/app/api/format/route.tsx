@@ -4,7 +4,7 @@ export async function POST(req: Request) {
   const body = await req.json();
 
   console.log(body);
-  const format = await fetch("http://localhost:8000/format", {
+  const format = await fetch(`${process.env.ANALYZE_API}/format`, {
     method: "POST",
     body: JSON.stringify({resume: body.text}),
     headers: {

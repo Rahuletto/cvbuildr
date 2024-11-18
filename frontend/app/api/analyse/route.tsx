@@ -3,7 +3,7 @@
 export async function POST(req: Request) {
     const body = await req.json();
   
-    const r = await fetch("http://localhost:8000/analyse", {
+    const r = await fetch(`${process.env.ANALYZE_API}/analyse`, {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
