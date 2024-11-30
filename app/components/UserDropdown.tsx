@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface UserDropdownProps {
