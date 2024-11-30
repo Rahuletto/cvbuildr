@@ -10,7 +10,7 @@ export default function Home() {
         <Auth />
       </header>
 
-      <section className="flex pt-5 gap-3 opacity-0 animate-fadeIn xl:pt-0 justify-between xl:flex-row flex-col items-center lg:px-32 md:px-16 px-4 h-[80vh]">
+      <section className="flex relative pt-5 gap-3 opacity-0 animate-fadeIn xl:pt-0 justify-between xl:flex-row flex-col items-center lg:px-32 md:px-16 px-4 h-[80vh]">
         <div className="flex gap-5 flex-col">
           <h2 style={{ animationDelay: "0.5s" }} className="text-4xl xl:text-7xl font-bold animate-fadeIn opacity-0">Build your resume<br />in <span className="underline">no-time</span></h2>
           <p style={{ animationDelay: "1s" }} className="text-lg lg:mb-4 font-semibold opacity-0 animate-opacityFade">Build an ATS-compliant resume to showcase what<br />you&apos;ve done so far</p>
@@ -32,7 +32,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <Image style={{ animationDelay: "0.8s" }} alt="Resume" src="/resume.png" className="animate-fadeIn opacity-0 xl:-mb-24 xl:scale-125 border-r-8 border-black rounded-t-[32px] border" width={500} height={600} />
+        <Image style={{ animationDelay: "0.8s" }} alt="Resume" src="/resume.png" className="absolute bottom-0 animate-fadeIn opacity-0 xl:scale-125 border-r-8 border-black rounded-t-[32px] border" width={500} height={600} />
       </section>
       <div className="flex h-[50px] bg-black w-[102%] rotate-[-3deg] -ml-1" />
       <span style={{ animationDelay: "3s" }} className="absolute animate-fadeIn opacity-0 bottom-6 right-12 text-black font-semibold text-md ">Made by <Link className="" href="https://marban.is-a.dev">Marban.</Link></span>
