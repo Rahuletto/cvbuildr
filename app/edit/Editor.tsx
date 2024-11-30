@@ -52,7 +52,7 @@ export default function Editor({ json }: { json: ResumeForm }) {
           handleChange,
         }}
       >
-        <div className="f-col gap-4 md:flex-row justify-evenly p-0 w-screen pl-16 md:mx-auto md:min-h-screen h-fit">
+        <div className="f-col gap-4 lg:flex-row justify-evenly w-screen lg:pr-0 px-4 lg:mx-auto lg:min-h-screen h-fit">
           <div className="exclude-print mt-24 lg:w-[38%]">
             <div className="exclude-print">
               <h1 className="text-5xl font-bold">Build your resume</h1>

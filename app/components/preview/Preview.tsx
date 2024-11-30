@@ -187,11 +187,11 @@ const Preview = () => {
           </div>
         </div>
       )}
-      <div className="print:hidden exclude-print z-20 fixed bottom-10 right-10 h-auto w-[110px] flex flex-wrap gap-2 items-end justify-end">
+      <div className="print:hidden exclude-print z-20 fixed bottom-10 right-10 h-auto flex gap-2 items-center justify-end">
         <button
           onClick={() => save()}
           disabled={saving !== 0}
-          className={`font-mono h-[50px] disabled:opacity-70 disabled:border-dashed border-2 border-black w-[110px] bg-black active:shadow-active transition-all duration-300 hover:shadow-hover disabled:hover:shadow-none disabled:active:shadow-none font-semibold ${
+          className={`rounded-xl px-6 py-2 disabled:opacity-70 disabled:border-dashed border-2 border-black bg-black active:shadow-active transition-all duration-300 hover:shadow-hover disabled:hover:shadow-none disabled:active:shadow-none font-semibold ${
             saving === 2
               ? "bg-green-500 text-black"
               : saving === 3
@@ -210,7 +210,7 @@ const Preview = () => {
 
         <button
           aria-label="Download Resume"
-          className="font-bold bg-white flex items-center justify-center text-black shadow-lg border-2 w-[50px] h-[50px] border-black"
+          className="font-bold bg-white flex items-center justify-center text-black shadow-lg border-2 p-2 rounded-xl border-black"
           onClick={() => analyser()}
         >
           <HiOutlineDownload className="text-3xl" title="Download Resume" />

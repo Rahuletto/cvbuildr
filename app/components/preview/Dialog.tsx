@@ -1,5 +1,6 @@
 import { AnalysisResult } from "@/types/Analysis";
 import React, { useEffect, useState } from "react";
+import { RxCaretRight } from "react-icons/rx";
 
 export default function Dialog({
   isOpen,
@@ -15,7 +16,11 @@ export default function Dialog({
   const [animatedScore, setAnimatedScore] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const confidenceScore = analysis ? analysis.overall.confidence : 0;
-  const [show, setShow] = useState(false);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleToggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -41,12 +46,12 @@ export default function Dialog({
 
   return (
     <div
-      className={`exclude-print print:hidden z-50 fixed inset-0 bg-black/60 backdrop-blur-md flex flex-col xl:flex-row gap-4 items-center justify-around transition-all duration-300 ease-in-out
+      className={`exclude-print print:hidden px-2 z-50 fixed inset-0 bg-black/60 backdrop-blur-md flex flex-col xl:flex-row gap-4 items-center justify-around transition-all duration-300 ease-in-out
         ${isOpen ? "opacity-100" : "opacity-0"}`}
       onClick={onClose}
     >
       <div
-        className={`bg-white w-[500px] rounded-3xl border-[3px] border-black shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden transition-all duration-300 ease-out
+        className={`bg-white max-w-[450px] w-full rounded-3xl border-[3px] border-black shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden transition-all duration-300 ease-out
           ${isOpen ? "scale-100 translate-y-0" : "scale-95 translate-y-4"}`}
         onClick={(e) => {
           e.preventDefault();
@@ -90,35 +95,45 @@ export default function Dialog({
             {analysis &&
               Object.entries(analysis)
                 .slice(0, -1)
-                .map(([key, value]) => (
-                  <div
-                    key={key}
-                    className="group flex border-b border-black items-center justify-between pl-6 transition-all duration-200"
-                  >
-                    <div className="font-mono capitalize font-medium text-md py-2 transition-all duration-300">
-                      {key}
+                .map(([key, value], index) => (
+
+                  <div className="group flex flex-col border-b border-black transition-all duration-200" key={key}>
+                    <div
+                      className="flex items-center justify-between pl-6 cursor-pointer"
+                      onClick={() => handleToggle(index)}
+                    >
+                      <div className="font-mono capitalize font-medium text-md transition-all duration-300">
+                        {key}
+                      </div>
+                      <div className="flex items-center h-full gap-3">
+                        <RxCaretRight
+                          className={`transition-transform duration-200 ${openIndex === index ? "rotate-90" : ""
+                            }`}
+                        />
+                        <div className="font-mono text-md font-bold bg-black text-white px-3 py-2 h-full flex items-center justify-center group-hover:scale-105 transition-all duration-200">
+                          {value.confidence.toFixed(2)}%
+                        </div>
+                      </div>
                     </div>
-                    <div className="font-mono text-md font-bold bg-black text-white px-3 py-1 h-full flex items-center justify-center group-hover:scale-105 transition-all duration-200">
-                      {value.confidence.toFixed(2)}%
-                    </div>
+                    {openIndex === index && (
+                      <div className="pl-6 pr-8 py-2 border-l border-black transition-all duration-300">
+                        <ul className="text-sm font-medium">{(value.suggestion as string).trim().split("$$").map((a: string, k: number) => (
+                          a.trim() && <li className="list-disc ml-2" key={k}>{a.replace("$$", "")}</li>
+                        ))}</ul>
+                      </div>
+                    )}
                   </div>
                 ))}
+
           </div>
         </div>
 
         {/* Action Buttons */}
         {text ? (
-          <div className="grid grid-cols-2 border-t-2 border-black/20">
-            <button
-              onClick={() => setShow((prev) => !prev)}
-              className="py-5 font-mono text-lg font-bold transition-all duration-200 
-              hover:bg-black/5 active:bg-black/10 hover:tracking-widest"
-            >
-              {show ? "Hide RAW" : "Show RAW"}
-            </button>
+          <div className="flex w-full border-t-2 border-black/20">
             <button
               onClick={onClose}
-              className="bg-black text-white font-mono py-5 text-lg font-bold
+              className="bg-black w-full text-white font-mono py-5 text-lg font-bold
               transition-all duration-200 hover:bg-black/90 active:bg-black/80
               border-l-2 border-white/20 hover:tracking-widest"
             >
@@ -146,21 +161,6 @@ export default function Dialog({
         )}
       </div>
 
-      {text && show && (
-        <div
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-          className="bg-white w-[900px] transition-all duration-300 animate-fadeIn rounded-3xl border-[3px] border-black shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden ease-out"
-        >
-          <div className="p-5 pr-8 bg-gray-100 transition-all duration-300 max-h-[900px] overflow-y-auto">
-            <pre className="font-mono text-md font-medium tracking-tight">
-              {text}
-            </pre>
-          </div>
-        </div>
-      )}
-    </div>
+    </div >
   );
 }

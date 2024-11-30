@@ -46,7 +46,8 @@ const FileUpload = () => {
         fetch("/api/format", {
           method: "POST",
           body: JSON.stringify({
-            text: text,
+            resume: text,
+            format: "detailed"
           }),
         })
           .then((e) => e.json())
@@ -76,7 +77,7 @@ const FileUpload = () => {
       >
         <div
           {...getRootProps()}
-          className={`p-4 relative flex-col gap-12 border-4 h-[40%] w-[60%] flex items-center justify-center border-black rounded-lg transition-all bg-white duration-200 ${
+          className={`p-4 relative flex-col gap-12 w-full border-4 h-[40%] lg:w-[60%] mx-3 flex items-center justify-center border-black rounded-2xl transition-all bg-white duration-200 ${
             isDragActive
               ? "shadow-[8px_12px_0px_0px_rgba(0,0,0,1)]"
               : selectedFile
@@ -91,7 +92,7 @@ const FileUpload = () => {
                 e.stopPropagation();
                 reset();
               }}
-              className="absolute -top-4 -right-4 text-white flex items-center justify-center text-xl font-semibold bg-black h-[50px] w-[50px]"
+              className="absolute -top-6 rounded-xl -right-6 text-white flex items-center justify-center text-xl font-semibold bg-black h-[50px] w-[50px]"
             >
               <FaXmark />
             </button>
@@ -121,7 +122,7 @@ const FileUpload = () => {
 
         <button
           onClick={extractText}
-          className="z-10 animate-fadeIn h-[50px] flex items-center justify-center absolute bottom-40 mb-1 lg:w-[150px] w-[150px] opacity-0 text-xl font-semibold text-white hover:shadow-hover active:shadow-active font-mono bg-black overflow-hidden transition-all duration-300"
+          className="z-10 animate-fadeIn mt-12 flex items-center justify-center opacity-0 text-xl px-4 py-2 rounded-xl font-semibold text-white border-2 border-black bg-black overflow-hidden transition-all duration-300 hover:shadow-hover active:shadow-active"
           disabled={!selectedFile}
         >
           Analyse

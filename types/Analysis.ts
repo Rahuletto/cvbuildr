@@ -6,6 +6,7 @@ interface StrengthConfidence {
 interface OverallEvaluation {
     strength: "strong" | "moderate" | "weak";
     confidence: number;
+    suggestion: string;
 }
 
 export interface AnalysisResult {
