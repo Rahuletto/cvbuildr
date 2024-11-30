@@ -1,42 +1,41 @@
 import Link from "next/link";
 import Auth from "./components/Auth";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex items-center justify-center w-screen h-screen flex-col gap-16">
-      <Auth />
-      <div className="flex items-center justify-end lg:gap-[0.7rem] lg:bottom-[-6px] bottom-[3px] gap-[1.4rem] relative flex-col">
-        <h1
-          style={{ animationDelay: "0.1s" }}
-          className="animate-fadeIn font-bold lg:text-8xl text-5xl opacity-0 text-center"
-        >
-          Resume Builder.
-        </h1>
-        <p
-          style={{ animationDelay: "0.3s" }}
-          className="animate-fadeIn lg:text-2xl text-lg opacity-0 font-semibold text-center"
-        >
-          Let&apos;s generate and evaluate your resume
-        </p>
-      </div>
+    <main className="w-screen min-h-screen overflow-hidden">
+      <header className="py-6 px-14 flex justify-between items-center">
+        <h1 className="font-semibold text-xl animate-fadeIn">cvbuildr</h1>
+        <Auth />
+      </header>
 
-      <div className="flex lg:gap-[100px] gap-[50px] lg:flex-row flex-col font-semibold items-center justify-center relative bottom-[2.3rem] lg:mt-[4.4rem] mt-[0.8rem]">
-        <Link
-          href="/edit"
-          style={{ animationDelay: "1.5s" }}
-          className="relative z-10 animate-fadeIn h-[50px] flex items-center justify-center lg:w-[200px] w-[250px] opacity-0 text-xl font-semibold text-white hover:shadow-hover active:shadow-active font-mono bg-black overflow-hidden transition-all duration-300"
-        >
-          Create Resume
-        </Link>
+      <section className="flex pt-5 gap-3 opacity-0 animate-fadeIn xl:pt-0 justify-between xl:flex-row flex-col items-center lg:px-32 md:px-16 px-4 h-[80vh]">
+        <div className="flex gap-5 flex-col">
+          <h2 style={{ animationDelay: "0.5s" }} className="text-4xl xl:text-7xl font-bold animate-fadeIn opacity-0">Build your resume<br />in <span className="underline">no-time</span></h2>
+          <p style={{ animationDelay: "1s" }} className="text-lg lg:mb-4 font-semibold opacity-0 animate-opacityFade">Build an ATS-compliant resume to showcase what<br />you&apos;ve done so far</p>
+          <div className="flex gap-6 font-semibold items-center">
+            <Link
+              href="/edit"
+              style={{ animationDelay: "1.5s" }}
+              className="z-10 animate-fadeIn flex items-center justify-center px-6 py-2 rounded-xl opacity-0 text-xl font-semibold text-white hover:shadow-hover active:shadow-active bg-black overflow-hidden transition-all duration-300"
+            >
+              Build
+            </Link>
 
-        <Link
-          href="/analyze"
-          style={{ animationDelay: "1.5s" }}
-          className="relative z-10 animate-fadeIn flex items-center justify-center h-[50px] w-[150px] opacity-0 text-xl font-semibold text-black font-mono border-2 border-black bg-white overflow-hidden transition-all duration-300 hover:shadow-hover active:shadow-active"
-        >
-          Analyze
-        </Link>
-      </div>
+            <Link
+              href="/analyze"
+              style={{ animationDelay: "1.5s" }}
+              className="z-10 animate-fadeIn flex items-center justify-center opacity-0 text-xl px-4 py-2 rounded-xl font-semibold text-black border-2 border-black bg-white overflow-hidden transition-all duration-300 hover:shadow-hover active:shadow-active"
+            >
+              Analyse
+            </Link>
+          </div>
+        </div>
+        <Image style={{ animationDelay: "0.8s" }} alt="Resume" src="/resume.png" className="animate-fadeIn opacity-0 xl:-mb-24 xl:scale-125 border-r-8 border-black rounded-t-[32px] border" width={500} height={600} />
+      </section>
+      <div className="flex h-[50px] bg-black w-[102%] rotate-[-3deg] -ml-1" />
+      <span style={{ animationDelay: "3s" }} className="absolute animate-fadeIn opacity-0 bottom-6 right-12 text-black font-semibold text-md ">Made by <Link className="" href="https://marban.is-a.dev">Marban.</Link></span>
     </main>
   );
 }

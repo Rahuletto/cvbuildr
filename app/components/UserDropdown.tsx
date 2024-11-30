@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface UserDropdownProps {
   user?: {
@@ -15,7 +16,6 @@ interface UserDropdownProps {
 
 const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const router = useRouter()
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
@@ -26,26 +26,26 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
   };
 
   return user ? (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left z-50">
       <button
         onClick={toggleDropdown}
-        className="flex items-center space-x-2 bg-white h-[50px] border-2 border-black w-[250px] focus:outline-none"
+        className={`flex items-center rounded-full space-x-2 bg-white border-2 border-black hover:shadow-active active:shadow-active ${isDropdownOpen ? "shadow-active" : ""} transition-all focus:outline-none`}
       >
         <Image
           width={46}
           height={46}
           src={user.image || ""}
           alt="Profile"
+          className="rounded-full"
         />
-        <h1 className="pl-2 text-ellipsis max-w-[200px] font-semibold font-mono">{user.name}</h1>
       </button>
       {isDropdownOpen && (
-        <div className="absolute opacity-0 animate-fadeIn left-0 mt-2 w-[200px] bg-white border-black border-2 shadow-lg">
+        <div className="absolute opacity-0 animate-fadeIn right-0 mt-4 w-[200px] rounded-xl bg-white border-black border-2 shadow-lg">
           <div className="">
-            <button onClick={() => router.push('/edit')} className="px-4 py-4 font-medium hover:bg-slate-100 w-full text-left text-sm text-gray-700">Update details</button>
+            <button className="px-4 py-4 font-medium hover:bg-slate-100 w-full rounded-t-[10px] text-left text-sm text-gray-700">{user.name}</button>
             <button
               onClick={handleSignOut}
-              className="block px-4 py-4 text-sm bg-red-500 hover:bg-red-600 text-white font-semibold w-full text-left"
+              className="block px-4 py-4 text-sm bg-red-500 hover:bg-red-600 rounded-b-[10px] text-white font-semibold w-full text-left cursor-pointer "
             >
               Sign Out
             </button>
@@ -54,12 +54,12 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
       )}
     </div>
   ) : (
-    <button
-      className="h-[50px] w-[300px] text-xl font-semibold text-white font-mono bg-black"
-      onClick={() => router.push("/signin")}
+    <Link
+      className="transition-all z-50 duration-200 hover:shadow-hover active:shadow-active flex items-center justify-center text-md font-semibold text-white px-4 py-2 rounded-xl bg-black"
+      href="/signin"
     >
       Sign in
-    </button>
+    </Link>
   );
 };
 

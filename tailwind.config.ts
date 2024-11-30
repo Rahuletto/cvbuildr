@@ -14,11 +14,16 @@ const config: Config = {
       },
       animation: {
         fadeIn: 'fadeIn 0.25s ease-out forwards', // Define the fadeIn animation
+        opacityFade: 'opacityFade 0.25s ease-out forwards', // Define the fadeIn animation
       },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        opacityFade: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '0.5' },
         },
       },
     },
