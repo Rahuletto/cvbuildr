@@ -1,5 +1,3 @@
-import Auth from "./components/Auth";
-
 export default function Home() {
   return (
     <main className="flex items-center justify-center w-screen h-screen flex-col gap-4">

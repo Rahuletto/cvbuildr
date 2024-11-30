@@ -10,15 +10,16 @@ export default function Home() {
         <Auth />
       </header>
 
-      <section className="flex relative pt-5 gap-3 opacity-0 animate-fadeIn xl:pt-0 justify-between xl:flex-row flex-col items-center lg:px-32 md:px-16 px-4 h-[80vh]">
-        <div className="flex gap-5 flex-col">
-          <h2 style={{ animationDelay: "0.5s" }} className="text-4xl xl:text-7xl font-bold animate-fadeIn opacity-0">Build your resume<br />in <span className="underline">no-time</span></h2>
-          <p style={{ animationDelay: "1s" }} className="text-lg lg:mb-4 font-semibold opacity-0 animate-opacityFade">Build an ATS-compliant resume to showcase what<br />you&apos;ve done so far</p>
+      <section className="flex relative pt-5 gap-3 opacity-0 animate-fadeIn xl:pt-0 justify-between xl:flex-row flex-col xl:items-end items-center lg:px-32 md:px-16 px-4 h-[80vh]">
+        <div className="flex gap-5 flex-col h-full justify-center">
+          <img src="/mascot.svg" className="relative lg:w-12 w-8 -mt-16 lg:-ml-8 -ml-4 -rotate-6" />
+          <h2 style={{ animationDelay: "0.5s" }} className="text-4xl lg:-mt-4 -mt-6 xl:text-7xl font-bold animate-fadeIn opacity-0">Build your resume<br />in <span className="underline">no-time</span></h2>
+          <p style={{ animationDelay: "1s" }} className="lg:text-lg text-base lg:mb-4 font-semibold opacity-0 animate-opacityFade">Build an ATS-compliant resume to showcase what<br />you&apos;ve done so far</p>
           <div className="flex gap-6 font-semibold items-center">
             <Link
               href="/edit"
               style={{ animationDelay: "1.5s" }}
-              className="z-10 animate-fadeIn flex items-center justify-center px-6 py-2 rounded-xl opacity-0 text-xl font-semibold text-white hover:shadow-hover active:shadow-active bg-black overflow-hidden transition-all duration-300"
+              className="z-10 animate-fadeIn flex items-center justify-center px-6 py-2 rounded-xl opacity-0 lg:text-xl text-base font-semibold text-white hover:shadow-hover active:shadow-active bg-black overflow-hidden transition-all duration-300"
             >
               Build
             </Link>
@@ -26,15 +27,18 @@ export default function Home() {
             <Link
               href="/analyze"
               style={{ animationDelay: "1.5s" }}
-              className="z-10 animate-fadeIn flex items-center justify-center opacity-0 text-xl px-4 py-2 rounded-xl font-semibold text-black border-2 border-black bg-white overflow-hidden transition-all duration-300 hover:shadow-hover active:shadow-active"
+              className="z-10 animate-fadeIn flex items-center justify-center opacity-0 lg:text-xl text-base px-4 py-2 rounded-xl font-semibold text-black border-2 border-black bg-white overflow-hidden transition-all duration-300 hover:shadow-hover active:shadow-active"
             >
               Analyse
             </Link>
           </div>
         </div>
-        <Image style={{ animationDelay: "0.8s" }} alt="Resume" src="/resume.png" className="absolute bottom-0 animate-fadeIn opacity-0 xl:scale-125 border-r-8 border-black rounded-t-[32px] border" width={500} height={600} />
+        <div className="xl:relative xl:w-[50%] w-full h-full flex items-end xl:mb-10 justify-center xl:scale-110">
+          <img src="/cursor.svg" className="z-50 absolute bottom-64 right-48" />
+          <Image style={{ animationDelay: "0.8s" }} alt="Resume" src="/resume.png" className="xl:absolute bottom-0 animate-fadeIn opacity-0 xl:scale-125 origin-bottom border-r-8 border-black rounded-t-[32px] border" width={500} height={600} />
+        </div>
       </section>
-      <div className="flex h-[50px] bg-black w-[102%] rotate-[-3deg] -ml-1" />
+      <div className="flex h-[50px] bg-black w-[102%] rotate-[-3deg] ml-[-6px] -mt-3 lg:mt-0" />
       <span style={{ animationDelay: "3s" }} className="absolute animate-fadeIn opacity-0 bottom-6 right-12 text-black font-semibold text-md ">Made by <Link className="" href="https://marban.is-a.dev">Marban.</Link></span>
     </main>
   );
