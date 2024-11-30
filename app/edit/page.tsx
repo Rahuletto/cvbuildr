@@ -1,7 +1,7 @@
 import React from "react";
 import Editor from "./Editor";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/types/AuthOptions";
 import { redirect } from "next/navigation";
 import DefaultResumeData from "../components/utility/DefaultResumeData";
 import { ResumeForm } from "@/types/FormData";
@@ -12,7 +12,7 @@ export default async function Page() {
 
   if (!session) return redirect("/signin");
 
-  const headersList = headers();
+  const headersList = await headers();
     const fullUrl = headersList.get('referer')?.split('/edit')[0] || "";
     
   const data = await fetch(

@@ -18,7 +18,7 @@ export async function PATCH(req:Request) {
       return NextResponse.json({error:"UUID is required"},{status:400})
     }
 
-    const {data,error,status} = await supabase
+    const { error } = await supabase
       .from('Resume')
       .upsert([
         {

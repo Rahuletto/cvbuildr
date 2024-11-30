@@ -1,7 +1,7 @@
 // app/auth/page.tsx (Server Component)
 
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from "@/types/AuthOptions";
 
 import UserDropdown from './UserDropdown';
 import Link from 'next/link';

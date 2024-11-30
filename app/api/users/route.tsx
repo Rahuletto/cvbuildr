@@ -21,11 +21,11 @@ export async function GET(req: Request) {
             .maybeSingle();
 
         if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 })
+            return NextResponse.json({ error: error.message }, { status: status })
         }
         if (!data) {
 
-            return NextResponse.json({ error: "No data found for the given uuid" }, { status: 404 });
+            return NextResponse.json({ error: "No data found for the given uuid" }, { status: status });
         }
 
         return NextResponse.json(data.data, { status: 200 })

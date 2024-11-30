@@ -114,7 +114,7 @@ const FileUpload = () => {
             </h3>
           ) : (
             <h3 className="text-center font-semibold text-2xl max-w-[400px]">
-              Drag 'n' drop a PDF file here, or click to select one
+              Drag &apos;n&apos; drop a PDF file here, or click to select one
             </h3>
           )}
         </div>
