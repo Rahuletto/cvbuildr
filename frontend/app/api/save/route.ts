@@ -1,20 +1,41 @@
-export async function PATCH(req: Request) {
-  const body = await req.json();
+import { createClient } from "@supabase/supabase-js";
+import { NextResponse } from "next/server";
 
-  const r = await fetch(`${process.env.JAVA_API}/api/users`, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-  const res = await r.json();
 
-  return new Response(JSON.stringify(res), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    status: r.status
-  });
+export async function PATCH(req:Request) {
+  try{
+    const { searchParams } = new URL(req.url);
+    const uuid = searchParams.get('uuid')
+
+    const requestData = await req.json();
+    console.log(requestData)
+
+    if(!uuid){
+      return NextResponse.json({error:"UUID is required"},{status:400})
+    }
+
+    const {data,error,status} = await supabase
+      .from('Resume')
+      .upsert([
+        {
+          uuid:uuid,
+          data: requestData
+        }
+      ])
+      .single();
+
+
+    if(error){
+      console.error("Error Inserting data: ",error)
+      return NextResponse.json({error:"Failed to save data to Database"},{status:500})
+    }
+    return NextResponse.json(requestData)
+  }catch(err){
+    console.error("Error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }

@@ -132,7 +132,8 @@ const Preview = () => {
 
   function save() {
     setSaving(1);
-    fetch("/api/save", {
+
+    fetch("/api/save?uuid=" + resumeData.uuid, {
       method: "PATCH",
       body: JSON.stringify(resumeData),
     })
@@ -148,6 +149,7 @@ const Preview = () => {
   }
 
   function analyser() {
+    save()
     setLoading(true);
     fetch("/api/analyse", {
       method: "POST",
