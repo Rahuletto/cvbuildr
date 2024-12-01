@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      cursor: {
+        auto: "url('/cursor.svg'), auto",
+        default: "url('/cursor.svg'), default",
+        pointer: "url('/pointer.svg'), pointer",
+        "not-allowed": "url('/block.svg'), not-allowed",
+        text: "url('/text.svg'), text",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
