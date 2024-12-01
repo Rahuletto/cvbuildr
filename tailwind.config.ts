@@ -11,9 +11,9 @@ const config: Config = {
       cursor: {
         auto: "url('/cursor.svg'), auto",
         default: "url('/cursor.svg'), default",
-        pointer: "url('/pointer.svg'), pointer",
-        "not-allowed": "url('/block.svg'), not-allowed",
-        text: "url('/text.svg'), text",
+        pointer: "url('/cursors/pointer.svg'), pointer",
+        "not-allowed": "url('/cursors/block.svg'), not-allowed",
+        text: "url('/cursors/text.svg'), text",
       },
       colors: {
         background: "var(--background)",
@@ -23,8 +23,20 @@ const config: Config = {
         fadeIn: 'fadeIn 0.25s ease-out forwards',
         opacityFade: 'opacityFade 0.25s ease-out forwards',
         cursor: 'cursor 1.7s cubic-bezier(0.19, 1, 0.22, 1) forwards, hovering 6s infinite',
+        shapeShift: 'shapeShift 3s cubic-bezier(0.19, 1, 0.22, 1) forwards infinite',
       },
       keyframes: {
+        shapeShift: {
+          '0%': { borderRadius: '24px' },
+          '12.5%': { borderRadius: '0px' },
+          '25%': { borderRadius: '48px' },
+          '37.5%': { borderRadius: '60px' },
+          '50%': { borderRadius: '100px' },
+          '62.5%': { borderRadius: '80px' },
+          '75%': { borderRadius: '0px' },
+          '87.5%': { borderRadius: '20px' },
+          '100%': { borderRadius: '24px' },
+        },
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },

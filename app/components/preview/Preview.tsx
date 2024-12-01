@@ -21,8 +21,9 @@ import Certification from "./Certification";
 import { FaLink } from "react-icons/fa6";
 import { DropResult } from "react-beautiful-dnd";
 import { HiOutlineDownload } from "react-icons/hi";
-import { AnalysisResult } from "@/types/Analysis";
+import { ATSResult } from "@/types/Analysis";
 import Dialog from "./Dialog";
+import { TbLoader2 } from "react-icons/tb";
 
 const DragDropContext = dynamic(
   () =>
@@ -70,7 +71,7 @@ const Preview = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
   const [loading, setLoading] = React.useState(false);
   const [saving, setSaving] = React.useState(0);
-  const [analysis, setAnalysis] = React.useState<AnalysisResult | null>(null);
+  const [analysis, setAnalysis] = React.useState<ATSResult | null>(null);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -177,11 +178,12 @@ const Preview = () => {
             opacity-100`}
         >
           <div
-            className={`bg-white w-[500px] rounded-xl border-[3px] border-black shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden transition-all duration-300 ease-out
-              scale-100 translate-y-0`}
+            className={`bg-white flex flex-row items-center justify-center w-[500px] gap-4 rounded-xl animate-shapeShift border-[3px] border-black shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden transition-all duration-300 ease-out
+        scale-100 translate-y-0`}
             onClick={(e) => e.stopPropagation()}
           >
-            <h1 className="text-3xl font-bold my-6 font-mono text-center">
+            <TbLoader2 className="animate-spin text-4xl" />
+            <h1 className="text-3xl font-bold my-6  w-fit font-mono text-center">
               Analysing
             </h1>
           </div>

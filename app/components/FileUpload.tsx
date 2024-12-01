@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 import pdfToText from "react-pdftotext";
 import { TbFiles, TbFileSmile } from "react-icons/tb";
 import { FaFilePdf, FaXmark } from "react-icons/fa6";
-import { AnalysisResult } from "@/types/Analysis";
+import { ATSResult } from "@/types/Analysis";
 import Dialog from "./preview/Dialog";
 import { TbLoader2 } from "react-icons/tb";
 
@@ -13,7 +13,7 @@ const FileUpload = () => {
   const [fileName, setFileName] = useState<string>("");
 
   const [loading, setLoading] = useState("");
-  const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
+  const [analysis, setAnalysis] = useState<ATSResult | null>(null);
   const [formattedText, setFormattedText] = useState<string | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -152,7 +152,7 @@ const FileUpload = () => {
           <div
             className={`bg-white flex flex-row items-center justify-center ${
               loading.startsWith("An") ? "w-[600px] py-12 gap-6" : "w-[500px] py-6 gap-4"
-            } rounded-xl border-[3px] border-black shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden transition-all duration-300 ease-out
+            } rounded-xl animate-shapeShift border-[3px] border-black shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden transition-all duration-300 ease-out
         scale-100 translate-y-0`}
             onClick={(e) => e.stopPropagation()}
           >
