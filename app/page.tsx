@@ -34,7 +34,10 @@ export default function Home() {
           </div>
         </div>
         <div className="xl:relative xl:w-[50%] w-full h-full flex items-end xl:mb-10 justify-center xl:scale-110">
-          <img src="/cursor.svg" className="z-50 absolute bottom-64 right-48" />
+          <div className="z-50 absolute bottom-64 right-48">
+            <img src="/cursor.svg" className="flex flex-col" />
+            <span className="px-2 py-0.5 text-sm font-semibold bg-black ml-6 relative -top-2 -rotate-3 flex text-white rounded-md">Marban</span>
+          </div>
           <Image style={{ animationDelay: "0.8s" }} alt="Resume" src="/resume.png" className="xl:absolute bottom-0 animate-fadeIn opacity-0 xl:scale-125 origin-bottom border-r-8 border-black rounded-t-[32px] border" width={500} height={600} />
         </div>
       </section>
