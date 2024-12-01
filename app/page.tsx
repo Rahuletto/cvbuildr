@@ -42,7 +42,7 @@ export default function Home() {
         </div>
       </section>
       <div className="flex h-[50px] bg-black w-[102%] rotate-[-3deg] ml-[-6px] -mt-3 lg:mt-0" />
-      <span style={{ animationDelay: "3s" }} className="absolute animate-fadeIn opacity-0 bottom-6 right-12 text-black font-semibold text-md ">Made by <Link className="" href="https://marban.is-a.dev">Marban.</Link></span>
+      <span style={{ animationDelay: "3s" }} className="absolute animate-fadeIn opacity-0 md:bottom-6 bottom-2 right-12 text-black font-semibold text-md ">Made by <Link className="" href="https://marban.is-a.dev">Marban.</Link></span>
     </main>
   );
 }
