@@ -15,7 +15,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { ReactNode, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume";
-import dynamic from "next/dynamic";
 import Language from "./Language";
 import Certification from "./Certification";
 import { FaLink } from "react-icons/fa6";
@@ -25,27 +24,7 @@ import { ATSResult } from "@/types/Analysis";
 import Dialog from "./Dialog";
 import { TbLoader2 } from "react-icons/tb";
 
-const DragDropContext = dynamic(
-  () =>
-    import("react-beautiful-dnd").then((mod) => {
-      return mod.DragDropContext;
-    }),
-  { ssr: false }
-);
-const Droppable = dynamic(
-  () =>
-    import("react-beautiful-dnd").then((mod) => {
-      return mod.Droppable;
-    }),
-  { ssr: false }
-);
-const Draggable = dynamic(
-  () =>
-    import("react-beautiful-dnd").then((mod) => {
-      return mod.Draggable;
-    }),
-  { ssr: false }
-);
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Preview = () => {
   const icons = [
