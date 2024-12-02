@@ -76,7 +76,7 @@ async function analyzeKeywords(resume: string, jobDescription: string): Promise<
             .trim();
     };
 
-    const cleanResume = cleanText(resume);
+
     const cleanJobDesc = cleanText(jobDescription);
 
     const commonWords = new Set(['and', 'the', 'or', 'in', 'at', 'to', 'for', 'with', 'a', 'an', 'of', 'on', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'this', 'that', 'these', 'those', 'from']);
@@ -275,7 +275,7 @@ export async function POST(req: NextRequest) {
         let parsedSuggestions: Suggestions | string;
         try {
             parsedSuggestions = JSON.parse(suggestions);
-        } catch (error) {
+        } catch {
             parsedSuggestions = suggestions;
         }
 
