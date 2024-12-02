@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main className="w-screen min-h-screen overflow-hidden">
-      <header className="py-6 px-14 flex justify-between items-center">
+      <header className="md:py-6 py-3 px-7 md:px-14 flex justify-between items-center">
         <h1 className="font-semibold text-xl animate-fadeIn">cvbuildr</h1>
         <Auth />
       </header>
