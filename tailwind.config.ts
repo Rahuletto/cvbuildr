@@ -19,13 +19,44 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        shimmerGradient: "linear-gradient(90deg, #9333EA 25%, black 50%, #6366F1 75%)",
+      },
       animation: {
         fadeIn: 'fadeIn 0.25s ease-out forwards',
         opacityFade: 'opacityFade 0.25s ease-out forwards',
         cursor: 'cursor 1.7s cubic-bezier(0.19, 1, 0.22, 1) forwards, hovering 6s infinite',
         shapeShift: 'shapeShift 3s cubic-bezier(0.19, 1, 0.22, 1) forwards infinite',
+        shimmer: "shimmer 1.5s ease-in-out infinite",
+        pulseOpacity: "pulseOpacity 1.5s ease-in-out infinite",
       },
+      
       keyframes: {
+        shimmer: {
+          "0%": {
+            backgroundPosition: "-200% 0",
+            backgroundImage: "linear-gradient(90deg, #9333EA 25%, black 50%, #6366F1 75%)",
+            opacity: "0.8",
+            // textShadow: "0 0 4px #9333EA, 0 0 8px #6366F1",
+          },
+          "50%": {
+            backgroundPosition: "200% 0",
+            backgroundImage: "linear-gradient(90deg, #6366F1 25%, black 50%, #9333EA 75%)",
+            opacity: "1",
+            // textShadow: "0 0 6px #6366F1, 0 0 12px #9333EA",
+          },
+          "100%": {
+            backgroundPosition: "-200% 0",
+            backgroundImage: "linear-gradient(90deg, #9333EA 25%, black 50%, #6366F1 75%)",
+            opacity: "0.8",
+            // textShadow: "0 0 4px #9333EA, 0 0 8px #6366F1",
+          },
+        },
+        // Text fade-in and opacity pulse
+        pulseOpacity: {
+          "0%, 100%": { opacity: "0.7" },
+          "50%": { opacity: "1" },
+        },
         shapeShift: {
           '0%': { borderRadius: '24px' },
           '12.5%': { borderRadius: '0px' },

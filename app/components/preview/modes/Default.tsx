@@ -1,23 +1,14 @@
 /* eslint-disable react/jsx-no-undef */
-import {
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
-  FaFacebook,
-  FaInstagram,
-  FaYoutube,
-} from "react-icons/fa";
 import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
 import Skills from "../Skills";
 import DateRange from "../../utility/DateRange";
 import ContactInfo from "../ContactInfo";
 import Image from "next/image";
 import Link from "next/link";
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode, useContext, useEffect } from "react";
 import { ResumeContext } from "@/providers/Resume";
 import Language from "../Language";
 import Certification from "../Certification";
-import { FaLink } from "react-icons/fa6";
 import { DropResult } from "react-beautiful-dnd";
 import { HiOutlineDownload } from "react-icons/hi";
 import { ATSResult } from "@/types/Analysis";
@@ -25,33 +16,28 @@ import Dialog from "../Dialog";
 import { TbLoader2 } from "react-icons/tb";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { icons } from "@/utils/icons";
+import { urls } from "@/utils/urls";
 
 const DefaultPreview = () => {
-  const icons = [
-    { name: "github", icon: <FaGithub /> },
-    { name: "linkedin", icon: <FaLinkedin /> },
-    { name: "twitter", icon: <FaTwitter /> },
-    { name: "facebook", icon: <FaFacebook /> },
-    { name: "instagram", icon: <FaInstagram /> },
-    { name: "youtube", icon: <FaYoutube /> },
-    { name: "website", icon: <FaLink /> },
-  ];
-
-  const urls = [
-    { name: "github", url: "https://github.com/" },
-    { name: "linkedin", url: "https://linkedin.com/in/" },
-    { name: "twitter", url: "https://twitter.com/" },
-    { name: "facebook", url: "https://facebook.com/" },
-    { name: "instagram", url: "https://instagram.com/" },
-    { name: "youtube", url: "https://youtube.com/" },
-    { name: "website", url: "https://" },
-  ];
-
   const { resumeData, setResumeData } = useContext(ResumeContext);
   const [loading, setLoading] = React.useState(false);
   const [saving, setSaving] = React.useState(0);
   const [analysis, setAnalysis] = React.useState<ATSResult | null>(null);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      save();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [])
+  
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
 
