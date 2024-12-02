@@ -1,49 +1,40 @@
 import React from "react";
-import Editor from "./Editor";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/types/AuthOptions";
-import { redirect } from "next/navigation";
-import DefaultResumeData from "../components/utility/DefaultResumeData";
-import { ResumeForm } from "@/types/FormData";
-import { headers } from "next/headers";
+import HomeButton from "../components/Home";
 
-export default async function Page() {
-  const session = await getServerSession(authOptions);
-
-  if (!session) return redirect("/signin");
-
-  const headersList = await headers();
-    const fullUrl = headersList.get('referer')?.split('/edit')[0] || "";
-    
-  const data = await fetch(
-    // @ts-expect-error idk
-    fullUrl + `/api/users?uuid=${session.user.id}`
+const templates = [
+  {
+    name: "Default",
+    image: "/preview/default.png",
+    link: "/edit/default",
+  },
+  {
+    name: "Modern",
+    image: "/preview/modern.png",
+    link: "/edit/modern",
+  },
+];
+export default function Selection() {
+  return (
+    <main className="h-screen w-screen p-32">
+      <HomeButton />
+      <h1 className="text-7xl text-left font-bold">Select a template</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-8">
+        {templates.map((template) => (
+          <a key={template.name} href={template.link}>
+            <img
+              src={template.image}
+              alt={template.name}
+              className="w-full border-4 border-black object-cover"
+            />
+            <a
+              href={template.link}
+              className="block mt-4 font-semibold text-lg"
+            >
+              {template.name}
+            </a>
+          </a>
+        ))}
+      </div>
+    </main>
   );
-
-  if (data.status === 404) {
-    const obj = { ...DefaultResumeData };
-    obj.name = session.user?.name as string;
-    obj.email = session.user?.email as string;
-
-    // @ts-expect-error idk
-    const r = await fetch(fullUrl + `/api/save?uuid=${session.user.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // @ts-expect-error idk
-        uuid: session.user?.id,
-        ...obj,
-      }),
-    });
-
-    const res = await r.json();
-
-    return <Editor json={res} />;
-  }
-
-  const json = await data.json();
-
-  return <Editor json={json as ResumeForm} />;
 }

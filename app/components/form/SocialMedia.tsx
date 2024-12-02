@@ -40,10 +40,20 @@ const SocialMedia = () => {
             type="text"
             placeholder="Social Media"
             name="socialMedia"
+            autoComplete="on"
+            list={`socialMediaList-${index}`}
             className="other-input w-[30%] border-r-0"
             value={socialMedia?.socialMedia}
             onChange={(e) => handleSocialMedia(e, index)}
           />
+          <datalist id={`socialMediaList-${index}`}>
+            <option value="LinkedIn" />
+            <option value="Twitter" />
+            <option value="Facebook" />
+            <option value="Instagram" />
+            <option value="GitHub" />
+            <option value="Website" />
+          </datalist>
           <input
             type="text"
             placeholder="Link"

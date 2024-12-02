@@ -74,13 +74,17 @@ button:disabled, :disabled {
   }
 }
 
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
 @layer base {
   body {
     @apply font-[sans-serif];
   }
 
   ::-webkit-scrollbar {
-    @apply w-2.5 h-2.5;
+    @apply w-2 h-2.5;
   }
 
   ::-webkit-scrollbar-track {

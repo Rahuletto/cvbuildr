@@ -1,7 +1,7 @@
 import React, { FocusEvent, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume";
 
-const Skills = ({ title, skills }: { title: string; skills: string[] }) => {
+const Skills = ({ title, skills, hclass, ptype }: { title: string; skills: string[]; hclass?: string; ptype?: "list" | "default" }) => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
 
   const handleTitleChange = (e: FocusEvent<HTMLHeadingElement>) => {
@@ -17,14 +17,20 @@ const Skills = ({ title, skills }: { title: string; skills: string[] }) => {
     skills.length > 0 && (
       <>
         <h2
-          className="section-title mb-1 border-b-2 border-gray-300 editable"
+          className={hclass + " section-title mb-1 border-b-2 border-gray-300 editable"}
           contentEditable
           suppressContentEditableWarning
           onBlur={handleTitleChange}
         >
           {title}
         </h2>
-        <p className="sub-content">{skills.join(", ")}</p>
+        {ptype == "list" ?
+          <ul className={skills.length > 7 ? "grid grid-cols-2" : "ml-3"}>
+            {skills.map((skill, index) => (
+              <li key={index} className="sub-content list-disc">{skill}</li>
+            ))}
+          </ul>
+          : <p className="sub-content">{skills.join(", ")}</p>}
       </>
     )
   );

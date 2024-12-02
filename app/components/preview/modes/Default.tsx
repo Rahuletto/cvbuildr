@@ -8,25 +8,25 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
-import Skills from "./Skills";
-import DateRange from "../utility/DateRange";
-import ContactInfo from "./ContactInfo";
+import Skills from "../Skills";
+import DateRange from "../../utility/DateRange";
+import ContactInfo from "../ContactInfo";
 import Image from "next/image";
 import Link from "next/link";
 import React, { ReactNode, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume";
-import Language from "./Language";
-import Certification from "./Certification";
+import Language from "../Language";
+import Certification from "../Certification";
 import { FaLink } from "react-icons/fa6";
 import { DropResult } from "react-beautiful-dnd";
 import { HiOutlineDownload } from "react-icons/hi";
 import { ATSResult } from "@/types/Analysis";
-import Dialog from "./Dialog";
+import Dialog from "../Dialog";
 import { TbLoader2 } from "react-icons/tb";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const Preview = () => {
+const DefaultPreview = () => {
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -550,4 +550,4 @@ const A4PageWrapper = ({ children }: { children: ReactNode }) => {
   return <div className="w-8.5in">{children}</div>;
 };
 
-export default Preview;
+export default DefaultPreview;
