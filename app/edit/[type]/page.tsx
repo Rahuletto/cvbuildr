@@ -7,7 +7,13 @@ import DefaultResumeData from "../../components/utility/DefaultResumeData";
 import { ResumeForm } from "@/types/FormData";
 import { headers } from "next/headers";
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ type: string }>
+}) {
+  const slug = (await params).type
+  
   const session = await getServerSession(authOptions);
 
   if (!session) return redirect("/signin");
@@ -24,6 +30,8 @@ export default async function Page() {
     const obj = { ...DefaultResumeData };
     obj.name = session.user?.name as string;
     obj.email = session.user?.email as string;
+    obj.summary = "Hi! I am " + obj.name;
+
 
     // @ts-expect-error idk
     const r = await fetch(fullUrl + `/api/save?uuid=${session.user.id}`, {
@@ -40,10 +48,10 @@ export default async function Page() {
 
     const res = await r.json();
 
-    return <Editor json={res} type={"default"} />;
+    return <Editor json={res} type={slug} />;
   }
 
   const json = await data.json();
 
-  return <Editor json={json as ResumeForm} type={"default"} />;
+  return <Editor json={json as ResumeForm} type={slug} />;
 }

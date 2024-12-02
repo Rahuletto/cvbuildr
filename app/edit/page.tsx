@@ -12,26 +12,35 @@ const templates = [
     image: "/preview/modern.png",
     link: "/edit/modern",
   },
+  {
+    name: "Clean",
+    image: "/preview/clean.png",
+    link: "/edit/clean",
+  }
 ];
 export default function Selection() {
   return (
-    <main className="h-screen w-screen p-32">
+    <main className="h-screen w-screen md:p-24 p-8">
       <HomeButton />
-      <h1 className="text-7xl text-left font-bold">Select a template</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-8">
+      <div className="exclude-print mb-12 lg:mb-0">
+        <h1 className="md:text-5xl text-2xl md:ml-0 ml-20 font-bold">
+          Select a template
+        </h1>
+        <p className="lg:block hidden text-lg font-medium mb-8">
+          Let&apos;s get started with your resume
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
         {templates.map((template) => (
-          <a key={template.name} href={template.link}>
+          <a key={template.name} className="flex flex-col" href={template.link}>
             <img
               src={template.image}
               alt={template.name}
-              className="w-full border-4 border-black object-cover"
+              className="w-full border-4 border-black rounded-xl object-cover"
             />
-            <a
-              href={template.link}
-              className="block mt-4 font-semibold text-lg"
-            >
+            <span className="block mt-2 font-semibold text-lg">
               {template.name}
-            </a>
+            </span>
           </a>
         ))}
       </div>

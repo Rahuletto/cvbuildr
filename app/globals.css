@@ -143,7 +143,7 @@ button:disabled, :disabled {
   }
 
   .editable {
-    @apply hover:bg-gray-100 hover:cursor-text outline-none;
+    @apply hover:bg-gray-100 hover:bg-opacity-20 hover:cursor-text outline-none;
   }
 }
 

@@ -16,8 +16,15 @@ import { ResumeForm } from "@/types/FormData";
 import { ResumeContext } from "@/providers/Resume";
 import HomeButton from "../components/Home";
 import ModernPreview from "../components/preview/modes/Modern";
+import CleanPreview from "../components/preview/modes/Clean";
 
-export default function Editor({ json, type }: { json: ResumeForm ; type: "default" | "modern" }) {
+export default function Editor({
+  json,
+  type,
+}: {
+  json: ResumeForm;
+  type: "default" | "modern" | string;
+}) {
   const [resumeData, setResumeData] = useState<ResumeForm>(json);
 
   const handleProfilePicture = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +63,9 @@ export default function Editor({ json, type }: { json: ResumeForm ; type: "defau
         <div className="f-col gap-4 lg:flex-row justify-evenly w-screen lg:pr-0 px-4 lg:mx-auto lg:min-h-screen h-fit">
           <div className="exclude-print lg:mt-24 mt-8 lg:w-[38%]">
             <div className="exclude-print mb-12 lg:mb-0">
-              <h1 className="lg:text-5xl text-2xl lg:ml-0 ml-20 font-bold">Build your resume</h1>
+              <h1 className="lg:text-5xl text-2xl lg:ml-0 ml-20 font-bold">
+                Build your resume
+              </h1>
               <p className="lg:block hidden text-lg font-medium mb-8">
                 Let&apos;s get started with your resume
               </p>
@@ -77,7 +86,13 @@ export default function Editor({ json, type }: { json: ResumeForm ; type: "defau
               <Certification />
             </form>
           </div>
-          {type=="modern" ? <ModernPreview /> : <DefaultPreview />}
+          {type == "clean" ? (
+            <CleanPreview />
+          ) : type == "modern" ? (
+            <ModernPreview />
+          ) : (
+            <DefaultPreview />
+          )}
         </div>
       </ResumeContext.Provider>
     </>

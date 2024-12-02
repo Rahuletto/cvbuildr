@@ -49,7 +49,7 @@ export default function Dialog({
       onClick={onClose}
     >
       <div onClick={(e) => e.stopPropagation()} className="md:w-[96%] md:pb-0 pb-12 overflow-auto md:h-[96%] w-full h-full transition-all duration-150 bg-white rounded-2xl border-4 border-black shadow-active flex lg:flex-row flex-col">
-        <div className="lg:w-[300px] relative pt-12 p-6 items-center justify-around lg:justify-start flex gap-14 lg:flex-col md:flex-row flex-col bg-gradient-to-b from-gray-100 to-white border-black lg:border-r-4 border-b-4 lg:border-b-0 lg:!rounded-l-2xl !rounded-t-2xl lg:rounded-t-none">
+        <div className="lg:w-[300px] relative pt-12 p-6 items-center justify-around lg:justify-start flex gap-14 lg:flex-col md:flex-row flex-col bg-gradient-to-b from-gray-100 to-white border-black lg:border-r-4 border-b-4 lg:border-b-0 lg:!rounded-l-2xl rounded-t-2xl lg:!rounded-t-none">
           <div className="flex flex-col items-center gap-6">
             <div className="relative w-48 h-24 flex items-center justify-center">
               <svg viewBox="0 0 200 100" className="w-full h-full">
@@ -103,7 +103,7 @@ export default function Dialog({
 
           </div>
 
-          <div className="lg:flex flex-row lg:absolute hidden bottom-3 gap-6 right-3 z-50">
+          <div className="lg:flex flex-row lg:absolute hidden bottom-3 gap-3 right-3 z-50">
             <button onClick={onClose} className="px-4 py-2 bg-white border border-black text-black rounded-xl font-semibold">{!text ? "Close" : "Edit"}</button>
             {!text && <button onClick={handlePrint} className="px-4 py-2 bg-black border border-black text-white font-semibold rounded-xl">Download</button>}
           </div>
