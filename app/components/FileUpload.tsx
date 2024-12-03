@@ -7,12 +7,10 @@ import { FaFilePdf, FaXmark } from "react-icons/fa6";
 import { ATSResult } from "@/types/Analysis";
 import Dialog from "./preview/Dialog";
 import { TbLoader2 } from "react-icons/tb";
-import { useSession } from "next-auth/react";
 
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
-  const { data: session } = useSession();
 
   const [loading, setLoading] = useState("");
   const [analysis, setAnalysis] = useState<ATSResult | null>(null);
@@ -59,8 +57,7 @@ const FileUpload = () => {
               method: "POST",
               body: JSON.stringify(res),
               headers: {
-                "Content-Type": "application/json", // @ts-expect-error idk
-                "Authorization": `${session?.user?.id}`
+                "Content-Type": "application/json"
               }
             })
               .then((r) => r.json())
