@@ -1,11 +1,11 @@
 import FormButton from "./FormButton";
-import React, { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume"
 
 const Projects = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
 
-  const handleProjects = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>, index: number) => {
+  const handleProjects = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>, index: number) => {
     const newProjects = [...resumeData.projects];
     (newProjects[index] as any)[e.target.name] = e.target.value;
     setResumeData({ ...resumeData, projects: newProjects });

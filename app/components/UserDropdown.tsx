@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ interface UserDropdownProps {
   };
 }
 
-const UserDropdown: React.FC<UserDropdownProps> = ({ user }) => {
+const UserDropdown: FC<UserDropdownProps> = ({ user }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {

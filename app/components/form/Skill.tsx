@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { ChangeEvent, FC, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume";
 import FormButton from "./FormButton";
 
@@ -6,12 +6,12 @@ interface SkillProps {
   title: string;
 }
 
-const Skill: React.FC<SkillProps> = ({ title }) => {
+const Skill: FC<SkillProps> = ({ title }) => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
 
   // skills
   const handleSkill = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement>,
     index: number,
     title: string
   ) => {

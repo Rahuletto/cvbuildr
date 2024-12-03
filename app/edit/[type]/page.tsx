@@ -10,28 +10,31 @@ import { headers } from "next/headers";
 export default async function Page({
   params,
 }: {
-  params: Promise<{ type: string }>
+  params: Promise<{ type: string }>;
 }) {
-  const slug = (await params).type
-  
+  const slug = (await params).type;
+
   const session = await getServerSession(authOptions);
 
   if (!session) return redirect("/signin");
 
   const headersList = await headers();
-  const fullUrl = headersList.get('referer')?.split('/edit')[0] || "https://cvbuildr.vercel.app";
+  const fullUrl =
+    headersList.get("referer")?.split("/edit")[0] ||
+    "https://cvbuildr.vercel.app";
 
   const data = await fetch(
     // @ts-expect-error idk
     fullUrl + `/api/users?uuid=${session.user.id}`
   );
 
-  if (data.status === 404) {
+  const body: ResumeForm & { error: string } = await data.json();
+
+  if (data.status === 404 || body.error) {
     const obj = { ...DefaultResumeData };
     obj.name = session.user?.name as string;
     obj.email = session.user?.email as string;
     obj.summary = "Hi! I am " + obj.name;
-
 
     // @ts-expect-error idk
     const r = await fetch(fullUrl + `/api/save?uuid=${session.user.id}`, {
@@ -51,7 +54,5 @@ export default async function Page({
     return <Editor json={res} type={slug} />;
   }
 
-  const json = await data.json();
-
-  return <Editor json={json as ResumeForm} type={slug} />;
+  return <Editor json={body} type={slug} />;
 }

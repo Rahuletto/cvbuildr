@@ -33,7 +33,7 @@ export interface ATSResult {
     sectionCompleteness: {
         completenessScore: number;
     };
-    suggestions: Suggestions | string;
+    suggestions?: Suggestions | string;
 }
 
 export interface Suggestions {

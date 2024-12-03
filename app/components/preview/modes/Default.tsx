@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-no-undef */
+"use client";
 import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
 import Skills from "../Skills";
 import DateRange from "../../utility/DateRange";
 import ContactInfo from "../ContactInfo";
 import Image from "next/image";
 import Link from "next/link";
-import React, { ReactNode, useContext, useEffect } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { ResumeContext } from "@/providers/Resume";
 import Language from "../Language";
 import Certification from "../Certification";
@@ -18,12 +19,14 @@ import { TbLoader2 } from "react-icons/tb";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { icons } from "@/utils/icons";
 import { urls } from "@/utils/urls";
+import { useSession } from "next-auth/react";
 
 const DefaultPreview = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
-  const [loading, setLoading] = React.useState(false);
-  const [saving, setSaving] = React.useState(0);
-  const [analysis, setAnalysis] = React.useState<ATSResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(0);
+  const [analysis, setAnalysis] = useState<ATSResult | null>(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -36,8 +39,8 @@ const DefaultPreview = () => {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [])
-  
+  }, []);
+
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
 
@@ -115,14 +118,18 @@ const DefaultPreview = () => {
   }
 
   function analyser() {
-    save()
     setLoading(true);
     fetch("/api/analyse", {
       method: "POST",
       body: JSON.stringify(resumeData),
+      headers: {
+        "Content-Type": "application/json", // @ts-expect-error idk
+        Authorization: `${session?.user?.id}`,
+      },
     })
       .then((a) => a.json())
       .then((res) => {
+        save();
         setLoading(false);
         setAnalysis(res);
       });
@@ -158,13 +165,16 @@ const DefaultPreview = () => {
         <button
           onClick={() => save()}
           disabled={saving !== 0}
-          className={`rounded-xl px-6 py-2 disabled:opacity-70 disabled:border-dashed border-2 border-black bg-black active:shadow-active transition-all duration-300 hover:shadow-hover disabled:hover:shadow-none disabled:active:shadow-none font-semibold ${
+          className={`rounded-xl px-6 py-2 backdrop-blur-sm disabled:opacity-70 disabled:border-dashed border-2 border-black bg-black active:shadow-active transition-all duration-300 hover:shadow-hover disabled:hover:shadow-none disabled:active:shadow-none font-semibold ${
             saving === 2
               ? "bg-green-500 text-black"
               : saving === 3
               ? "bg-red-500 text-black"
               : "bg-black text-white"
           }`}
+          style={{
+            WebkitBackdropFilter: "blur(10px)",
+          }}
         >
           {saving === 1
             ? "Saving"
@@ -184,9 +194,16 @@ const DefaultPreview = () => {
         </button>
       </div>
 
-      <div className="md:max-w-[50%] w-full h-fit min-h-screen sticky top-0 preview rm-padding-print p-6 print:p-1 bg-white border-l border-black print:border-l-0 print:absolute print:top-0 print:left-0 print:w-screen print:min-h-screen">
+      <div className="lg:max-w-[50%] w-full h-fit min-h-screen sticky top-0 preview rm-padding-print p-6 print:p-1 bg-white border-l border-black print:border-l-0 print:absolute print:top-0 print:left-0 print:w-screen print:min-h-screen">
         <A4PageWrapper>
           <DragDropContext onDragEnd={onDragEnd}>
+            {!resumeData.subscribed && (
+              <div className="absolute hidden w-full h-full top-0 left-0 z-10 print:flex items-center justify-center">
+                <h1 className="text-9xl -rotate-45 opacity-10 text-black font-black">
+                  cvbuildr
+                </h1>
+              </div>
+            )}
             <div className="f-col items-center mb-1">
               {resumeData.profilePicture ? (
                 <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-black">
@@ -215,7 +232,7 @@ const DefaultPreview = () => {
               />
               <div className="flex flex-wrap gap-3">
                 {resumeData.socialMedia &&
-                  resumeData.socialMedia.map((socialMedia, index) => {
+                  resumeData?.socialMedia?.map((socialMedia, index) => {
                     const url =
                       urls.find(
                         (a) => a.name === socialMedia.socialMedia.toLowerCase()
@@ -279,7 +296,14 @@ const DefaultPreview = () => {
                     </div>
                   )}
                 </div>
-                <Droppable droppableId="skills" type="SKILLS">
+                <Droppable
+                  direction="vertical"
+                  ignoreContainerClipping
+                  isCombineEnabled={true}
+                  isDropDisabled={false}
+                  droppableId="skills"
+                  type="SKILLS"
+                >
                   {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
                       {resumeData.skills?.map((skill, index) => (
@@ -320,6 +344,10 @@ const DefaultPreview = () => {
                 {resumeData.workExperience &&
                   resumeData.workExperience.length > 0 && (
                     <Droppable
+                      direction="vertical"
+                      ignoreContainerClipping
+                      isCombineEnabled={true}
+                      isDropDisabled={false}
                       droppableId="work-experience"
                       type="WORK_EXPERIENCE"
                     >
@@ -367,6 +395,10 @@ const DefaultPreview = () => {
                                       {item.description}
                                     </p>
                                     <Droppable
+                                      direction="vertical"
+                                      ignoreContainerClipping
+                                      isCombineEnabled={true}
+                                      isDropDisabled={false}
                                       droppableId={`WORK_EXPERIENCE_KEY_ACHIEVEMENT-${index}`}
                                       type="WORK_EXPERIENCE_KEY_ACHIEVEMENT"
                                     >
@@ -422,7 +454,14 @@ const DefaultPreview = () => {
                     </Droppable>
                   )}
                 {resumeData.projects && resumeData.projects.length > 0 && (
-                  <Droppable droppableId="projects" type="PROJECTS">
+                  <Droppable
+                    direction="vertical"
+                    ignoreContainerClipping
+                    isCombineEnabled={true}
+                    isDropDisabled={false}
+                    droppableId="projects"
+                    type="PROJECTS"
+                  >
                     {(provided) => (
                       <div {...provided.droppableProps} ref={provided.innerRef}>
                         <h2
@@ -465,6 +504,10 @@ const DefaultPreview = () => {
                                 </div>
                                 <p className="content">{item.description}</p>
                                 <Droppable
+                                  direction="vertical"
+                                  ignoreContainerClipping
+                                  isCombineEnabled={true}
+                                  isDropDisabled={false}
                                   droppableId={`PROJECTS_KEY_ACHIEVEMENT-${index}`}
                                   type="PROJECTS_KEY_ACHIEVEMENT"
                                 >

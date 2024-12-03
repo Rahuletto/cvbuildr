@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume"
 import FormButton from "./FormButton";
 
@@ -8,7 +8,7 @@ const Language = () => {
   const title = "Languages";
   const placeholder = "Language";
 
-  const handleSkills = (e: React.ChangeEvent<HTMLInputElement>, index: number, skillType: string) => {
+  const handleSkills = (e: ChangeEvent<HTMLInputElement>, index: number, skillType: string) => {
     const newSkills = [...(resumeData as any)[skillType]];
     newSkills[index] = e.target.value;
     setResumeData({ ...resumeData, [skillType]: newSkills });

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 
 import FormButton from "./FormButton";
 import { ResumeContext } from "@/providers/Resume";
@@ -9,7 +9,7 @@ const Certification = () => {
   const title = "Certifications";
 
   const handleSkills = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement>,
     index: number,
     skillType: string
   ) => {

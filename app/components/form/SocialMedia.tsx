@@ -1,5 +1,5 @@
 import FormButton from "./FormButton";
-import React, { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume";
 
 const SocialMedia = () => {
@@ -7,7 +7,7 @@ const SocialMedia = () => {
 
   // social media
   const handleSocialMedia = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const newSocialMedia = [...resumeData.socialMedia];
@@ -34,7 +34,7 @@ const SocialMedia = () => {
   return (
     <div className="flex relative flex-col gap-2 -m-3 px-6 py-4 pb-8 my-14 border-2 border-black border-dashed">
       <h2 className="input-title">Social Media</h2>
-      {resumeData.socialMedia.map((socialMedia, index) => (
+      {resumeData?.socialMedia?.map((socialMedia, index) => (
         <div key={index} className="flex flex-wrap">
           <input
             type="text"
@@ -65,7 +65,7 @@ const SocialMedia = () => {
         </div>
       ))}
       <FormButton
-        size={resumeData.socialMedia.length}
+        size={resumeData.socialMedia?.length}
         add={addSocialMedia}
         remove={removeSocialMedia}
       />

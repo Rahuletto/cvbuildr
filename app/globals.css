@@ -41,7 +41,7 @@ button, a {
 
 h1, h2, h3, h4, h5, h6, p, span, textarea, input {
   cursor: url("/cursors/text.svg"), auto !important;
-  cursor: url("/cursors/text.svg"), text !important;
+  cursor: url("/cursors/text.svg") 5 5, text !important;
 }
 
 button:disabled, :disabled {

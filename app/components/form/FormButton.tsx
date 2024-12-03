@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 
 interface FormButtonProps {
@@ -6,7 +7,7 @@ interface FormButtonProps {
   add: () => void;
 }
 
-const FormButton: React.FC<FormButtonProps> = ({ size, remove, add }) => {
+const FormButton: FC<FormButtonProps> = ({ size, remove, add }) => {
 
     return (
       <div className="flex flex-row absolute -bottom-8 right-6">

@@ -35,6 +35,7 @@ interface Project {
 
 export interface ResumeForm {
   uuid?: string;
+  subscribed?: boolean;
   name: string;
   position: string;
   number: string;

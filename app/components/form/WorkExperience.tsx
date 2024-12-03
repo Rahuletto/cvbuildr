@@ -1,5 +1,5 @@
 import FormButton from "./FormButton";
-import React, { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume";
 
 const WorkExperience = () => {
@@ -7,8 +7,8 @@ const WorkExperience = () => {
 
   const handleWorkExperience = (
     e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>,
+      | ChangeEvent<HTMLInputElement>
+      | ChangeEvent<HTMLTextAreaElement>,
     index: number
   ) => {
     const newworkExperience = [...resumeData.workExperience];

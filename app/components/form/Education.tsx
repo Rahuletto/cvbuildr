@@ -1,12 +1,12 @@
 import FormButton from "./FormButton";
-import React, { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { ResumeContext } from "@/providers/Resume";
 
 const Education = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
 
   const handleEducation = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const newEducation = [...resumeData.education];

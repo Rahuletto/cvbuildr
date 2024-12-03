@@ -9,6 +9,7 @@ const Summary = () => {
   const [isRewriting, setIsRewriting] = useState(false);
   const [prev, setPrev] = useState<string>("");
 
+
   async function rewrite() {
     setIsRewriting(true);
     setPrev(resumeData.summary);
@@ -17,6 +18,7 @@ const Summary = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `${resumeData.uuid}`,
       },
       body: JSON.stringify({ summary: resumeData.summary }),
     })
@@ -59,8 +61,13 @@ const Summary = () => {
           <button
             onClick={rewrite}
             type="button"
+            disabled={!resumeData.subscribed || isRewriting}
+            title={
+              !resumeData.subscribed
+                ? "You need to be subscribed to use this feature"
+                : "Rewrite your summary"
+            }
             className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-black text-white font-semibold hover:bg-gray-800"
-            disabled={isRewriting}
           >
             <SiGooglegemini /> Rewrite
           </button>

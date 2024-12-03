@@ -1,10 +1,12 @@
+import { FC } from "react";
+
 interface DateRangeProps {
   startYear: string;
   endYear: string;
   id: string;
 }
 
-const DateRange: React.FC<DateRangeProps> = ({ startYear, endYear, id }) => {
+const DateRange: FC<DateRangeProps> = ({ startYear, endYear, id }) => {
   if (!startYear) {
     return <p id={id} className="sub-content"></p>;
   }
