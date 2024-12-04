@@ -2,35 +2,39 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
-const API_KEY = process.env.GOOGLE_API_KEY 
+const API_URL =
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
+const API_KEY = process.env.GOOGLE_API_KEY;
 
-async function generateContent(prompt: string): Promise<string | null> {
-  const response = await fetch(`${API_URL}?key=${API_KEY}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "private, max-age=300, s-maxage=300",
-    },
-    body: JSON.stringify({
-      contents: [
-        {
-          parts: [{ text: prompt }],
-        },
-      ],
-    }),
-  });
+async function generateContent(prompt: string): Promise<string | undefined> {
+  try {
+    const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "private, max-age=300, s-maxage=300",
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [{ text: prompt }],
+          },
+        ],
+      }),
+    });
 
-  if (response.ok) {
-    const data = await response.json();
-    const content = data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
-    return content;
-  } else {
-    console.error(`Error: ${response.status} - ${await response.text()}`);
-    return null;
+    if (response.ok) {
+      const data = await response.json();
+      const content = data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
+      return content;
+    } else {
+      console.error(`Failed to generate content: ${response.statusText}`);
+    }
+  } catch (error: any) {
+    console.error(`Error: ${error}`);
+    return error;
   }
 }
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -76,7 +80,9 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-      const jsonContent = JSON.parse(generatedContent.replace(/```json\n?/, "").replace(/\n```/, ""));
+      const jsonContent = JSON.parse(
+        generatedContent.replace(/```json\n?/, "").replace(/\n```/, "")
+      );
       return NextResponse.json(jsonContent);
     } catch (err) {
       console.error("Error parsing JSON:", err);
