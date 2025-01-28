@@ -1,10 +1,14 @@
+
 import Link from "next/link";
 import Auth from "./components/Auth";
 import Image from "next/image";
+import Payment from "./Payment";
+
 
 export default function Home() {
+  
   return (
-    <main className="w-screen min-h-screen overflow-hidden">
+    <main className="w-screen min-h-screen overflow-hidden relative">
       <header className="md:py-6 py-3 px-7 md:px-14 flex justify-between items-center">
         <h1 className="font-semibold text-xl animate-fadeIn">cvbuildr</h1>
         <Auth />
@@ -42,6 +46,7 @@ export default function Home() {
         </div>
       </section>
       <div className="flex h-[50px] bg-black w-[102%] rotate-[-3deg] ml-[-6px] -mt-3 lg:mt-0" />
+      <Payment />
       <span style={{ animationDelay: "3s" }} className="absolute animate-fadeIn opacity-0 md:bottom-6 bottom-2 right-12 text-black font-semibold text-md ">Made by <Link className="" href="https://marban.is-a.dev">Marban.</Link></span>
     </main>
   );
